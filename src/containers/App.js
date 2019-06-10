@@ -7,6 +7,7 @@ export class App extends Component {
     lat: null,
     err: ""
   };
+
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       pos => this.setState({ lat: pos.coords.latitude }),
@@ -14,13 +15,17 @@ export class App extends Component {
     );
   }
 
-  render() {
+  renderContent() {
     if (this.state.lat) {
       return <SeasonDisplay lat={this.state.lat} />;
     } else if (this.state.errMessage) {
       return <div>Error: {this.state.errMessage}</div>;
     }
     return <Spinner messages={"Please accept the location request"} />;
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
